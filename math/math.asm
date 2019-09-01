@@ -90,11 +90,8 @@ ___exp endp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ___pow proc
-	push ebp
-	mov  ebp, esp
-
-	fld    qword ptr [ebp+16]
-	fld    qword ptr [ebp+8]
+	fld    qword ptr [esp+12]
+	fld    qword ptr [esp+4]
 	fyl2x
 	fld1
 	fld    st(1)
@@ -104,9 +101,6 @@ ___pow proc
 	fscale
 	fxch
 	fstp   st(0)
-
-	mov esp, ebp
-	pop ebp
 	ret
 ___pow endp
 
@@ -128,13 +122,10 @@ __sqrt@@8 endp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ___root proc
-	push ebp
-	mov  ebp, esp
-	
-	fld qword ptr [ebp+16]
+	fld qword ptr [esp+12]
 	fld1
 	fdivr
-	fld qword ptr [ebp+8]
+	fld qword ptr [esp+4]
 	fyl2x
 	fld1
 	fld    st(1)
@@ -144,9 +135,6 @@ ___root proc
 	fscale
 	fxch
 	fstp   st(0)
-
-	mov  esp, ebp
-	pop  ebp
 	ret
 ___root endp
 
@@ -255,23 +243,15 @@ ___atan endp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ___actan proc
-	push   ebp
-	mov    ebp, esp
-
-	fld    qword ptr [ebp+8]
+	fld    qword ptr [esp+4]
 	fld1
 	fpatan
 	fchs
 	fldpi
-	mov    ecx, 2
-	push   ecx
-	fild   dword ptr [esp]
-	pop    ecx
+	fld1
+	fadd  st(0), st(0)
 	fdiv
 	fadd
-	
-	mov    esp, ebp
-	pop    ebp
 	ret
 ___actan endp
 
@@ -295,10 +275,8 @@ ___cosh proc
 	call   ___exp
 	add    esp, 8
 	fadd
-	mov    ecx, 2
-	push   ecx
-	fild   dword ptr [esp]
-	pop    ecx
+	fld1
+	fadd  st(0), st(0)
 	fdiv
 
 	mov    esp, ebp
@@ -326,10 +304,8 @@ ___sinh proc
 	call   ___exp
 	add    esp, 8
 	fsub
-	mov    ecx, 2
-	push   ecx
-	fild   dword ptr [esp]
-	pop    ecx
+	fld1
+	fadd  st(0), st(0)
 	fdiv
 
 	mov    esp, ebp
@@ -390,10 +366,7 @@ ___ctanh endp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ___acosh proc
-	push ebp
-	mov  ebp, esp
-
-	fld  qword ptr [ebp+8]
+	fld  qword ptr [esp+4]
 	fld  st(0)
 	fmul st(0), st(0)
 	fld1
@@ -403,9 +376,6 @@ ___acosh proc
 	fldln2
 	fxch
 	fyl2x
-
-	mov  esp, ebp
-	pop  ebp
 	ret
 ___acosh endp
 
@@ -416,10 +386,7 @@ ___acosh endp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ___asinh proc
-	push ebp
-	mov  ebp, esp
-
-	fld  qword ptr [ebp+8]
+	fld  qword ptr [esp+4]
 	fld  st(0)
 	fmul st(0), st(0)
 	fld1
@@ -429,9 +396,6 @@ ___asinh proc
 	fldln2
 	fxch
 	fyl2x
-
-	mov  esp, ebp
-	pop  ebp
 	ret
 ___asinh endp
 
@@ -442,10 +406,7 @@ ___asinh endp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ___atanh proc
-	push   ebp
-	mov    ebp, esp	
-
-	fld    qword ptr [ebp+8]
+	fld    qword ptr [esp+4]
 	fld    st(0)
 	fld1
 	fadd   st(1), st(0)
@@ -454,14 +415,9 @@ ___atanh proc
 	fldln2
 	fxch
 	fyl2x
-	mov    ecx, 2
-	push   ecx
-	fild   dword ptr [esp]
-	pop    ecx
+	fld1
+	fadd   st(0), st(0)
 	fdiv
-
-	mov    esp, ebp
-	pop    ebp
 	ret
 ___atanh endp
 
@@ -472,10 +428,7 @@ ___atanh endp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ___actanh proc
-	push   ebp
-	mov    ebp, esp	
-
-	fld    qword ptr [ebp+8]
+	fld    qword ptr [esp+4]
 	fld    st(0)
 	fld1
 	fadd   st(1), st(0)
@@ -484,14 +437,9 @@ ___actanh proc
 	fldln2
 	fxch
 	fyl2x
-	mov    ecx, 2
-	push   ecx
-	fild   dword ptr [esp]
-	pop    ecx
+	fld1
+	fadd   st(0), st(0)
 	fdiv
-
-	mov    esp, ebp
-	pop    ebp
 	ret
 ___actanh endp
 
