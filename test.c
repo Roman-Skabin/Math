@@ -62,6 +62,8 @@ void profile_math()
 
 int main()
 {
-	profile_math();
+	f64 rad  = 90 * f64_TO_RAD;
+	f64 grad = f64_PI_2 * f64_TO_GRAD;
+//	profile_math();
 	return 0;
 }
