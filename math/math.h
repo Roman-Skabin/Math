@@ -36,6 +36,9 @@ typedef double f64;
 extern "C" {
 #endif
 
+// 0 <= value <= 20
+u64 __fastcall __fact(u32 value);
+
 #pragma region f64_functions
 
 s32 __vectorcall __ceil(f64 value);
@@ -71,7 +74,7 @@ f64 __cdecl __log(f64 x);
 f64 __cdecl __log2(f64 x);
 f64 __cdecl __log10(f64 x);
 
-#pragma endregion f64_functions
+#pragma endregion
 
 #pragma region f32_functions
 
@@ -108,7 +111,7 @@ f32 __cdecl __logf(f32 x);
 f32 __cdecl __log2f(f32 x);
 f32 __cdecl __log10f(f32 x);
 
-#pragma endregion f32_functions
+#pragma endregion
 
 #ifdef __cplusplus
 }

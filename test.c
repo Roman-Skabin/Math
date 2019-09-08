@@ -122,6 +122,7 @@ void test_f32_math()
 
 int main()
 {
+#if 0
 	puts("f64 functions: \n\n");
 	test_f64_math();
 
@@ -129,6 +130,16 @@ int main()
 
 	puts("\nf32 functions: \n\n");
 	test_f32_math();
+#endif
+
+	for (u32 i = 0; i < 25; i++)
+	{
+		u64 last = __rdtsc();
+		u64 val  = __fact(i);
+		u64 cur  = __rdtsc();
+
+		printf("__fact(%hhu) = %I64u\tcycles: %I64u\n", i, val, cur - last);
+	}
 
 	getchar();
 	return 0;
